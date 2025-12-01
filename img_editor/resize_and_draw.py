@@ -1,3 +1,7 @@
+"""
+フォルダ内の画像を読み込み、リサイズ後、矩形や線を描画して保存する。
+リサイズは、縦横比を維持して横幅500pxにする。
+"""
 import tkinter as tk
 from tkinter import filedialog, messagebox
 from PIL import Image, ImageTk, ImageDraw
@@ -305,4 +309,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

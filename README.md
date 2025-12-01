@@ -31,16 +31,46 @@ pip install -r requirements.txt
 
 ## 使い方
 
-1. アプリケーションを起動します：
+### draw_and_resize.py（統合アプリ）
+
+画像をリサイズして描画機能を使用する場合：
 
 ```bash
-python -m img_editor.main
+python -m img_editor.draw_and_resize
 ```
 
 または
 
 ```bash
-python img_editor/main.py
+python img_editor/draw_and_resize.py
+```
+
+### img_draw.py（描画専用アプリ）
+
+画像を元のサイズのまま描画する場合：
+
+```bash
+python -m img_editor.img_draw
+```
+
+または
+
+```bash
+python img_editor/img_draw.py
+```
+
+### img_resize.py（リサイズ専用アプリ）
+
+フォルダ内の画像を一括リサイズする場合：
+
+```bash
+python -m img_editor.img_resize
+```
+
+または
+
+```bash
+python img_editor/img_resize.py
 ```
 
 2. **元フォルダ**を選択します（編集したい画像が入っているフォルダ）
@@ -78,12 +108,41 @@ python img_editor/main.py
 py_tk_image_editor/
 ├── img_editor/
 │   ├── __init__.py
-│   └── main.py
+│   ├── draw_and_resize.py
+│   ├── img_draw.py
+│   └── img_resize.py
 ├── requirements.txt
 └── README.md
 ```
 
-## ライセンス
+## 各ファイルの説明
 
-このプロジェクトのライセンス情報は記載されていません。
+| ファイル名 | 説明 | 主な機能 |
+|-----------|------|---------|
+| `draw_and_resize.py` | 画像エディタ（統合版） | フォルダ内の画像を読み込み、横幅500pxにリサイズ（縦横比維持）して表示。矩形や線を描画して保存。リサイズ後の画像を保存。 |
+| `img_draw.py` | 画像エディタ（描画専用版） | フォルダ内の画像を読み込み、元のサイズのまま表示。矩形や線を描画して保存。元のサイズの画像を保存。 |
+| `img_resize.py` | 画像リサイズアプリ | フォルダ内の画像を一括でリサイズ（横幅500px、縦横比維持）して保存先フォルダに保存。プログレスバーで進捗を表示。 |
 
+### 各ファイルの詳細機能
+
+#### draw_and_resize.py
+- **画像表示**: 横幅500pxにリサイズ（縦横比維持）して表示
+- **描画機能**: 
+  - 通常ドラッグ: 赤色の矩形
+  - Shift+ドラッグ: 蛍光緑色の矩形
+  - クリック: 連続クリックで線を描画（Enterキーで多角形を閉じる）
+- **保存**: リサイズ後の画像に描画を反映して保存（`元のファイル名_answer.jpg`）
+
+#### img_draw.py
+- **画像表示**: 元のサイズのまま表示（キャンバスサイズを画像サイズに合わせる）
+- **描画機能**: 
+  - 通常ドラッグ: 赤色の矩形
+  - Shift+ドラッグ: 蛍光緑色の矩形
+  - クリック: 連続クリックで線を描画（Enterキーで多角形を閉じる）
+- **保存**: 元のサイズの画像に描画を反映して保存（`元のファイル名_answer.jpg`）
+
+#### img_resize.py
+- **一括リサイズ**: フォルダ内の全画像を横幅500pxにリサイズ（縦横比維持）
+- **プログレスバー**: 処理進捗を表示（`完了数/総数`）
+- **非同期処理**: 別スレッドで処理を実行し、UIがフリーズしない
+- **保存**: 元のファイル名で保存先フォルダに保存
