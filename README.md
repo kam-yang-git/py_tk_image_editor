@@ -31,18 +31,18 @@ pip install -r requirements.txt
 
 ## 使い方
 
-### draw_and_resize.py（統合アプリ）
+### resize_and_draw.py（統合アプリ）
 
 画像をリサイズして描画機能を使用する場合：
 
 ```bash
-python -m img_editor.draw_and_resize
+python -m img_editor.resize_and_draw
 ```
 
 または
 
 ```bash
-python img_editor/draw_and_resize.py
+python img_editor/resize_and_draw.py
 ```
 
 ### img_draw.py（描画専用アプリ）
@@ -72,6 +72,30 @@ python -m img_editor.img_resize
 ```bash
 python img_editor/img_resize.py
 ```
+
+### json_editor.py（JSONエディタ）
+
+メーター画像と解説画像を管理し、JSONファイルを編集する場合：
+
+```bash
+python -m img_editor.json_editor
+```
+
+または
+
+```bash
+python img_editor/json_editor.py
+```
+
+**JSONエディタの使い方：**
+
+1. 種別（電力・水道・ガス）を選択します
+2. **読み込み**ボタンをクリックしてJSONファイルを読み込みます
+3. IDスピンボックスで編集したいIDを選択します
+4. 各フィールド（倍率、パルス単位、表示値など）を編集します
+5. **画像を選択**ボタンでメーター画像や解説画像を選択・更新できます
+6. **データ追加**ボタンで新規データを追加できます
+7. **保存**ボタンで変更をJSONファイルに保存します
 
 2. **元フォルダ**を選択します（編集したい画像が入っているフォルダ）
 
@@ -108,9 +132,18 @@ python img_editor/img_resize.py
 py_tk_image_editor/
 ├── img_editor/
 │   ├── __init__.py
-│   ├── draw_and_resize.py
+│   ├── resize_and_draw.py
 │   ├── img_draw.py
-│   └── img_resize.py
+│   ├── img_resize.py
+│   ├── json_editor.py
+│   ├── img/
+│   │   ├── electricity/
+│   │   ├── gas/
+│   │   └── water/
+│   └── json/
+│       ├── electricity.json
+│       ├── gas.json
+│       └── water.json
 ├── requirements.txt
 └── README.md
 ```
@@ -119,13 +152,14 @@ py_tk_image_editor/
 
 | ファイル名 | 説明 | 主な機能 |
 |-----------|------|---------|
-| `draw_and_resize.py` | 画像エディタ（統合版） | フォルダ内の画像を読み込み、横幅500pxにリサイズ（縦横比維持）して表示。矩形や線を描画して保存。リサイズ後の画像を保存。 |
+| `resize_and_draw.py` | 画像エディタ（統合版） | フォルダ内の画像を読み込み、横幅500pxにリサイズ（縦横比維持）して表示。矩形や線を描画して保存。リサイズ後の画像を保存。 |
 | `img_draw.py` | 画像エディタ（描画専用版） | フォルダ内の画像を読み込み、元のサイズのまま表示。矩形や線を描画して保存。元のサイズの画像を保存。 |
 | `img_resize.py` | 画像リサイズアプリ | フォルダ内の画像を一括でリサイズ（横幅500px、縦横比維持）して保存先フォルダに保存。プログレスバーで進捗を表示。 |
+| `json_editor.py` | JSONエディタ | メーター画像と解説画像を管理し、JSONファイル（電力・水道・ガス）を編集。画像の選択・更新、各種パラメータの編集が可能。 |
 
 ### 各ファイルの詳細機能
 
-#### draw_and_resize.py
+#### resize_and_draw.py
 - **画像表示**: 横幅500pxにリサイズ（縦横比維持）して表示
 - **描画機能**: 
   - 通常ドラッグ: 赤色の矩形
@@ -146,3 +180,14 @@ py_tk_image_editor/
 - **プログレスバー**: 処理進捗を表示（`完了数/総数`）
 - **非同期処理**: 別スレッドで処理を実行し、UIがフリーズしない
 - **保存**: 元のファイル名で保存先フォルダに保存
+
+#### json_editor.py
+- **種別管理**: 電力・水道・ガスの3種類のJSONファイルを管理
+- **画像管理**: 
+  - メーター画像と解説画像を表示・選択・更新
+  - 画像は自動的に`img/{種別}/`ディレクトリに保存
+- **データ編集**: 
+  - 倍率、パルス単位、表示値、解説文などのフィールドを編集
+  - IDごとにデータを管理（1～999）
+- **データ追加**: 新規IDのデータを追加可能
+- **保存**: JSONファイルに変更を保存（UTF-8、インデント付き）
