@@ -160,19 +160,19 @@ class ImageEditorApp:
         # 矩形を描画
         for rect in self.rectangles:
             x1, y1, x2, y2, color = rect
-            self.canvas.create_rectangle(x1, y1, x2, y2, outline=color, width=2)
+            self.canvas.create_rectangle(x1, y1, x2, y2, outline=color, width=3)
             
         # 線を描画
         for line in self.lines:
             x1, y1, x2, y2 = line
-            self.canvas.create_line(x1, y1, x2, y2, fill="red", width=2)
+            self.canvas.create_line(x1, y1, x2, y2, fill="red", width=3)
             
         # ドラッグ中の矩形を描画
         if self.is_dragging and self.drag_start and self.drag_end:
             self.canvas.create_rectangle(
                 self.drag_start[0], self.drag_start[1],
                 self.drag_end[0], self.drag_end[1],
-                outline=self.drag_color, width=2
+                outline=self.drag_color, width=3
             )
             
     def on_canvas_click(self, event):
@@ -274,12 +274,12 @@ class ImageEditorApp:
             else:
                 rgb_color = (255, 0, 0)
                 
-            draw.rectangle([x1, y1, x2, y2], outline=rgb_color, width=2)
+            draw.rectangle([x1, y1, x2, y2], outline=rgb_color, width=3)
             
         # 線を描画
         for line in self.lines:
             x1, y1, x2, y2 = line
-            draw.line([x1, y1, x2, y2], fill=(255, 0, 0), width=2)
+            draw.line([x1, y1, x2, y2], fill=(255, 0, 0), width=3)
             
         # 保存
         original_filename = self.image_files[self.current_image_index]
